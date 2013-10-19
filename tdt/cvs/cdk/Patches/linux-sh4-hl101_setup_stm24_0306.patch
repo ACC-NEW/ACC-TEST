@@ -1,0 +1,44 @@
+*** linux-sh4-2.6.32.28_stm24_0211_orig/drivers/net/phy/phy_device.c	2011-08-04 16:27:16.440157990 +0300
+--- linux-sh4/drivers/net/phy/phy_device.c	2011-08-05 17:35:37.308158605 +0300
+***************
+*** 962,968 ****
+  		return retval;
+  	}
+  
+! 	pr_debug("%s: Registered new driver\n", new_driver->name);
+  
+  	return 0;
+  }
+--- 962,968 ----
+  		return retval;
+  	}
+  
+! 	pr_info("%s: Registered new driver (0x%08x)\n", new_driver->name, new_driver->phy_id);
+  
+  	return 0;
+  }
+*** a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c	2013-10-07 16:57:41.333080689 +0200
+--- b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c	2013-10-16 12:53:31.753731165 +0200
+***************
+*** 243,249 ****
+  			 * and no PHY number was provided to the MAC,
+  			 * use the one probed here.
+  			 */
+! 			if (priv->plat->phy_addr == -1)
+  				priv->plat->phy_addr = addr;
+  
+  			act = (priv->plat->phy_addr == addr);
+--- 243,255 ----
+  			 * and no PHY number was provided to the MAC,
+  			 * use the one probed here.
+  			 */
+!  			if ((priv->plat->phy_addr == -1) ||
+!  					(phydev->phy_id == 0x0181b880) || // Davicom DM9161E
+!  					(phydev->phy_id == 0x0181b8a0) || // Davicom DM9161A
+!  					(phydev->phy_id == 0x00181b80) || // Davicom DM9131
+!  					(phydev->phy_id == 0x1c040011) || // STe100p
+!  					(phydev->phy_id == 0x00061c50) || // STe101p
+!  					(phydev->phy_id == 0x001cc912))   // RTL821x
+  				priv->plat->phy_addr = addr;
+  
+  			act = (priv->plat->phy_addr == addr);

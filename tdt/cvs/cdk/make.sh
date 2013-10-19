@@ -71,8 +71,8 @@ echo -e "Ядро:"
 echo "---------------------------------------"
 #echo "   1) STM 24 P0207"
 #echo "   2) STM 24 P0210"
-echo "   STM 24 P0211"
-#echo "   4) STM 24 P0302"
+#echo "   3) STM 24 P0211"
+echo "    STM 24 P0306"
 #case $2 in
 #        [1-4]) REPLY=$2
 #        echo -e "\nВыбранное ядро: $REPLY\n"
@@ -88,16 +88,11 @@ echo "   STM 24 P0211"
 #	4) KERNEL="--enable-stm24 --enable-p0302";STMFB="stm24";;
 #	*) KERNEL="--enable-stm24 --enable-p0211";STMFB="stm24";;
 #esac
-KERNEL="--enable-stm24 --enable-p0211"
+KERNEL="--enable-stm24 --enable-p0306"
 STMFB="stm24"
 CONFIGPARAM="$CONFIGPARAM $KERNEL"
 
 ##############################################
-
-echo "   python 2.7.3"
-PYTHON="--enable-py27"
-
-echo ""
 echo -e "\npython:"
 echo " 1) Python 2.7.3 - по умолчанию"
 echo " 2) Python 2.7.5 - test"
@@ -148,34 +143,22 @@ echo "---------------------------------------"
 echo "   Плэйер 191"
 PLAYER="--enable-player191"
 cd ../driver/include/
-#if [ -L player2 ]; then
-#   rm player2
-#fi
 
 if [ -L stmfb ]; then
    rm stmfb
 fi
-#ln -s player2_191 player2
 ln -s ../stgfb/stmfb-3.1_stm24_0104/include stmfb
 cd - > /dev/null 2>&1
 
-#cd ../driver/
-#if [ -L player2 ]; then
-#   rm player2
-#fi
-#ln -s player2_191 player2
 echo "export CONFIG_PLAYER_191=y" >> .config
-#cd - > /dev/null 2>&1
 
 cd ../driver/stgfb
 if [ -L stmfb ]; then
    rm stmfb
 fi
-#if [ "$STMFB" == "stm24" ]; then
+
 ln -s stmfb-3.1_stm24_0104 stmfb
-#else
-#    ln -s stmfb-3.1_stm23_0032 stmfb
-#fi
+
 cd - > /dev/null 2>&1
 
 ##############################################
